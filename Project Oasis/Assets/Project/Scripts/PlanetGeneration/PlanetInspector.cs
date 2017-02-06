@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MeshGenerator))]
-public class MeshGeneratorInspector : Editor
+[CustomEditor(typeof(PlanetGenerator))]
+public class PlanetInspector : Editor
 {
-    private MeshGenerator creator;
+    private PlanetGenerator creator;
 
     private void OnEnable()
     {
-        creator = target as MeshGenerator;
+        creator = target as PlanetGenerator;
         Undo.undoRedoPerformed += RefreshCreator;
     }
 
@@ -23,7 +23,7 @@ public class MeshGeneratorInspector : Editor
     {
         if (Application.isPlaying)
         {
-            creator.Refresh();
+            creator.Create();
         }
     }
 

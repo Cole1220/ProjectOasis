@@ -79,9 +79,15 @@
     <Compile Include="Assets\Project\Scripts\CTEventManager.cs" />
     <Compile Include="Assets\Project\Scripts\Game.cs" />
     <Compile Include="Assets\Project\Scripts\GameEventManager.cs" />
-    <Compile Include="Assets\Project\Scripts\PlanetGeneration\Icosahedron.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\IcosahedronChunkGenerator.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\IcosahedronChunkInspector.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\IcosahedronGenerator.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\IcosahedronInspector.cs" />
     <Compile Include="Assets\Project\Scripts\PlanetGeneration\MeshGenerator.cs" />
     <Compile Include="Assets\Project\Scripts\PlanetGeneration\MeshGeneratorInspector.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\Noise.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\PlanetGenerator.cs" />
+    <Compile Include="Assets\Project\Scripts\PlanetGeneration\PlanetInspector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
