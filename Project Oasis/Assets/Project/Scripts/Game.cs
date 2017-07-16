@@ -7,10 +7,17 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public const string STRING_PLANET = "Planet";
+    public const String STRING_ATMO = "Atmosphere";
+
     public static Game g_cGame;
+    public static GameObject player; //TODO: reference script Player
+    public static GameObject planet; //TODO: reference script Planet
     public static Camera camera;
 
     public static GameEventManager events;
+
+    public GameObject playerPrefab;
     
 	// Used for when the script is enabled
 	void Awake ()
@@ -25,18 +32,39 @@ public class Game : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //Set up Camera
+        camera = Camera.main;
+
         events = gameObject.AddComponent<GameEventManager>();
 	}
 
     // Use this for initialization
     void Start()
     {
-        //Set up Camera
-        camera = Camera.main;
+        //Load up loading Overlay
+        //Display loading Overlay
 
         //Set up Planet
+        planet = new GameObject();
+        planet.name = STRING_PLANET;
+        planet.tag = STRING_PLANET;
+        PlanetGenerator planetIcosahedron = planet.AddComponent<PlanetGenerator>();
+        planetIcosahedron.Init(planet);
 
+        //Set up Player Location
+        //Set up Player Avatar
+        //player = Instantiate(Resources.Load("Player")) as GameObject;
+        player = Instantiate(playerPrefab) as GameObject;
+        player.transform.position = planetIcosahedron.planetSurface;
+        CharacterController playerController = player.AddComponent<CharacterController>();
+        playerController.radius = 15;
+        playerController.height = 40;
+        playerController.center = new Vector3(0,20,0);
+        Movement playerMovement = player.AddComponent<Movement>();
+        PlayerController controller = player.AddComponent<PlayerController>();
+        controller.Init();
 
+        //Hide loading Overlay
     }
 	
 	// Update is called once per frame
@@ -44,42 +72,4 @@ public class Game : MonoBehaviour
     {
 		
 	}
-
-    //Dictionaries need to be saved through a scriptableObject
-    public void Save()
-    {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/GameSave.dat", FileMode.Open);
-
-        float hp = 10;
-        float mp = 10;
-        float exp = 10;
-
-        //save local items to saved items
-        SaveData data = new SaveData();
-        data.hp = hp;
-
-        bf.Serialize(file, data);
-        file.Close();
-    }
-
-    public void Load()
-    {
-        if(File.Exists(Application.persistentDataPath + "/GameSave.dat"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/GameSave.dat", FileMode.Open);
-            SaveData data = (SaveData)bf.Deserialize(file);
-            file.Close();
-
-            //Set local items to saved items
-        }
-    }
-}
-
-[Serializable]
-class SaveData
-{
-    public float hp;
-    //Add class data save here and use it to manage saves 
 }

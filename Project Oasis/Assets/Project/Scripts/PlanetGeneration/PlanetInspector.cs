@@ -23,7 +23,7 @@ public class PlanetInspector : Editor
     {
         if (Application.isPlaying)
         {
-            creator.Create();
+            creator.Redraw();
         }
     }
 
